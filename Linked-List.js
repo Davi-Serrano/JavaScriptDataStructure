@@ -182,4 +182,81 @@ class LinkedList {
         return true
 
     }
+
+
+    //REMOVE remove um item da lista de acordo com o index desejado.
+    remove(index){
+
+        //Se o index for o primerio item realizará o método SHIFT.
+        if(index === 0){
+            return this.shift()
+        }
+
+        //Se o index for o ultimo item realizará o método POP.
+        if(index === this.length){
+            return this.pop()
+        }
+
+        //Só poderam ser encontrados indexes maiores ou iguais a zero e menores que o a quantidade total de itens que a lista possui 
+        if(index < 0 || index >= this.length){
+            return undefined
+        }
+
+        //variavialel before aponta para o item anterior que será removido da Lista.
+        let before = this.get(index - 1)
+
+        //TEMP aponta para o item que será rtemovido da Lista.
+        let temp = before.next
+
+        //Faz com que o NODE (next) aponte para o valor que vem depois do item que será removido.
+        before.next  = temp.next
+
+        //Faz com que o NODE do valor removido aponte para null.
+        temp.next = null
+        
+        this.length--
+        
+        return temp
+    }
+
+
+    //Esse método é o mais comlicado, ele inver a ordem da Lista, ou se ja o HEAD passa a ser o TAIl e o TAIL passa a ser o HEAD.
+    reverse(){
+        //TEMP guarda o valor de HEAD,
+        let temp = this.head
+
+        //Transforma o HEAD em TAIL,
+        this.head = this.tail
+
+        //Transforma on TAIL em HEAD com o valor de TEMP que armazena o valor antigo da cabeça,
+        this.tail = temp
+
+        //Para fazermos os NODES apontarem para trás precisamos de três variáveis que iram percorrer pelo array mudando de posições entre si.
+        
+        //Variável NEXT é igual ao proximo item da lista, o valor para qual o NODE está sendo apontado no momento.
+        let next = temp.next
+        
+        //Variável PREV igual ao item anterior ou seja para qual o NODE apontará quando a Lista for revertida.Ele começa com null pois non final ela será a TAIL.
+        let prev = null
+
+        //Precisaremos da Varialvel TEMP para acesar o item que está sendo apontando no momento antes da Lista ser revertida.
+        //Como já declaramos o TEMP  na primeira linha desse código usaremos o temp.next
+
+        for(let i = 0; i < this.length; i++){
+
+            //faz a redeclação do valora atual do NEXT
+            next = temp.next
+
+            //Faz com que o NODE sejá apontado para o item anterior
+            temp.next = prev
+            
+            //Declara o item anteior como sendo o novo item pra quem o NODE apontará (temp.next).
+            prev = temp
+
+            //Decalra o novo item que sofrerá a mudança no seu NODE.
+            temp = next
+        }
+
+        return this
+    }
 }
