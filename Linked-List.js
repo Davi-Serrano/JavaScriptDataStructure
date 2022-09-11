@@ -68,7 +68,7 @@ class LinkedList {
         return temp
     }
 
-    //Unshift coloca um novo item no começo da lista, HEAD, o NODE deverá apontar para o item que antes o HEAD da lista.
+    //UNSHIFT coloca um novo item no começo da lista, HEAD, o NODE deverá apontar para o item que antes o HEAD da lista.
     unshift(value){
         const newNode  = new Node(value)
 
@@ -86,5 +86,100 @@ class LinkedList {
         this.length++
         return this
       
+    }
+
+    //SHIFT remove o primeiro valor da Lista o HEAD.
+    shift(){
+        //Se a Lista estiver vazia
+        if(!this.head){
+            return undefined
+        }
+
+        //TEMP apontará para o valor a ser excluido, que será nosso HEAD.
+        let temp = this.head
+
+        //Torna o segundo item da lista o HEAD da Lista.
+        this.head = this.head.next
+        this.length--
+
+        //Se tiver somente um item na lista antes do SHIFT deixará a lista vazia e apontará o TAIL para null.
+        if (this.length === 0) {
+            return this.tail = null
+        }
+
+        //Remove o ponteiro do temp o antigo HEAD tirando toda a conexão dele com a lista.
+        temp.next = null
+        
+        return temp
+    }
+
+    //GET pega um item da Lista de acordo com seu index.
+    get(index){
+    
+        //Só poderam ser encontrados indexes maiores ou iguais a zero e menores que o a quantidade total de itens que a lista possui 
+        if(index < 0 || index >= this.length){
+            return undefined
+        }
+
+        //temp rerá como valor inicial o HEAD e percorrerá toda a lista até chegar no item antes do index desejado, quando chegar retornára o próximo valor
+        //retornando o item  do index desejado .
+        let temp = this.head
+
+       for(let i = 0; i < index; i++){
+            temp = temp.next
+       }
+
+       return temp
+    }
+
+    //SET subistui um valor por outro na lista, passando o index que deseja substituir e o novo valor como parâmetros.
+    set(index, value){
+        //Reutilizamos o métodoo GET para achar o index desejado.
+        let index = this.get(index)
+
+        //Verificamos se o index existe, caso exista substituimos pelo novo valor
+        if(temp){
+            temp.value = value
+
+            return true
+        }
+
+        //Retornamos falso caso o index não exista.
+        return false
+    }
+
+    //INSERT insere um novo valor na Lista  na posição do index desejado sem excluir ou substituir nenhum item da Lista.
+    insert(index, value){
+
+        //Se o index for o primerio item realizará o método UNSHIFT.
+        if(index === 0){
+           return this.unshift(value)
+        }
+
+        //Se o index for o ultimo item realizará o método PUSH.
+        if(index === this.length){
+             return this.push(value)
+        }
+
+        //Só poderam ser encontrados indexes maiores ou iguais a zero e menores que o a quantidade total de itens que a lista possui 
+        if(index < 0 || index >= this.length){
+            return false
+        }
+    
+        //Cria um novo nó
+        const newNode = new Node(value)
+
+        //Pega o item anterior do index desejado.
+        const temp = this.get(index - 1)
+
+        //Faz com que o NEXT aponte para o próximo item da Lista.
+        newNode.next = temp.next
+
+        //Faz com que o item anterior do index desejado aponte seu NEXT para o novo NODE criado.
+        temp.next = newNode
+
+        this.length++
+        return true
+
     }
 }
