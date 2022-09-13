@@ -16,7 +16,7 @@ class DoublyLinkedList{
         this.length = 1
     }
 
-    //PUSH adiciona um novo item no finail lista,TAIL.
+    //PUSH Adiciona um novo item no finail lista,TAIL.
     push(value){
         const newNode = new Node(value)
 
@@ -41,7 +41,7 @@ class DoublyLinkedList{
         return this
     }
 
-    //POP remove o último iTem da Lista, o TAIL, que passara a (this.ser) o prev do i tem que será exluido.
+    //POP Remove o último iTem da Lista, o TAIL, que passara a (this.ser) o prev do i tem que será exluido.
     pop(){
 
         //Se a Lista estiver vazia não possível excluir.
@@ -74,7 +74,7 @@ class DoublyLinkedList{
         return temp
     }
 
-    //UNSHIFT adiciona um valor no inicio da Lsiat se torando o HEAD.
+    //UNSHIFT Adiciona um valor no inicio da Lsiat se torando o HEAD.
     unshift(value){
         const newNode = new Node(value)
 
@@ -101,21 +101,28 @@ class DoublyLinkedList{
         return this
     }
 
+    //SHIFT Deleta o primeiro valor de Lista, HEAD,
     shift(){
         if(!this.head){
             return undefined
         }
 
+        //Criamos uma variável que se tornará nosso HEAD atual que excluiremos
         let temp = this.head
 
+        //Se a Lista só possuir um item deixamremos ela vazio, fazendo com que HEAD e TAIL apontem para NULL
         if(this.length === 1){
             this.head = null
             this.tail = null  
         }
-        
+        //Caso a Lista tenha mais de um item o next do HEAD atual se tornará o novo HEAD, e o prev do novo HEAD deverá pontar para NULL.
         else {
+            //transforma o segundo item da lista no novo HEAD.
             this.head = this.head.next
+            //Apaga o NODE (prev) que apontava para o antigo HEAD.
             this.head.prev = null
+
+            //Apaga o next do Antigo HEAD que aponta para o novo HEAD.
             temp.next = null
         }
         
@@ -125,19 +132,28 @@ class DoublyLinkedList{
     }
     
 
+    //GET Retorna um item da Lista.
     get(index){
         if(index < 0 ||  index > this.length){
             return undefined
         }
 
+        //Diferente da Linked List na Doubly Linked List temos o um ponteiro apontando para frente e para trás.
+        //Isso faz com que possamos achar o algorismo mais rapidamente, como demonstraremos no código a seguir.
+        
+        
+        //Variável que armazenará o valor de cada item da Lista até chegar no index desejado.
         let temp = this.head
+
+        //Nesse algoritimo pegamos o valor desejado e dividimos o total de item do array por 2
+        //Caso ele seja menor procuraremos ele a partir do HEAD, pois precisaremos percorrer menos item até chegar no index desejado.
 
         if(index < this.length / 2){
             for(let i = 0; i < index ; i++){
                 temp = temp.next
             }
         }
-
+        //Caso ele seja maior procuraremos ele a partir do TAIL e percorreremos a Lista de trás para frente o que antes não era possível na Linked List.
         else {
             temp = this.tail
 
@@ -149,9 +165,12 @@ class DoublyLinkedList{
         return temp
     }
 
+    //SET Substitui o valor de um item na Lista.
     set(index, value){
+        //pega o index desejado
         let temp = this.get(index)
 
+        //Caso o item exita troca seu valor.
         if(temp){
             temp.value = value
            
@@ -161,55 +180,91 @@ class DoublyLinkedList{
         return false
     }
 
+    //INSERT insere um item na Lista.
     insert(index, value){
         if(index < 0 ||  index > this.length){
             return undefined
         }
 
+        //Caso seja para inserir o item no HEAD.
         if(index === 0){
            return this.unshift(value)
         }
-
+        
+        //Caso seja para inserir o item no TAIL.
         if(index === this.length){
             return this.push(value)
         }
 
+
+        //Para inserrirmos um novo item na Lista no index desejado iremos
+        //Pegar o item que atualemnte está no local aonde colocaremos nosso novo item.
+        //Após pegarmos o item chamaremos chamaremos ele de BEFORE
+        //pegaremos o item que vem depois de BEFORE, o qual será o próximo item da Lista após  de inserirmos o novo Item
+        //Chamaremos esse item de After e inserimos o novo item apontando seu this.prev para o BEFORE e seu this.netx para o AFTER.
+
+        //Cria um novo item
         const newNode = new Node(value)
 
+        
+        //Pega o valor item que se encontra  no index aonde o novo valor será inserido.
         const before = this.get(index - 1)
+        
+        //Pega o próximo item do item será inserido.
         const after = before.next
 
+        //Coloca o novo item no seu local desejado.
         before.next = newNode
+        
+        //Faz com o prev do novo item aponte para o item anterior.
         newNode.prev = before
+        
+        //Faz com o prev do novo item aponte para o próximo item .
         newNode.next = after
+
+        //Faz com que o prev do item vem que depois do novo item inserido aponte para o novo item inserido.
         after.prev = newNode
 
         this.length++
         return true
     }
 
+    //REMOVE remove um valor da Lista.
     remove(index){
         if(index < 0 ||  index > this.length){
             return undefined
         }
 
+        //Remove o primeiro item.
         if(index === 0){
            return this.shift()
         }
 
+        //Remove o último item.
         if(index === this.length){
             return this.pop()
         }
 
+        //Pega o item que será excluido
         const temp = this.get(index)
 
+        //Pega o item anterior do item que será excluido.
         const before = temp.prev
+        
+        //Pega o próximo item do item que será excluido.
         const after = temp.next
 
+        //Faz com que o ponteiro next do item que será excluido aponte par NULL.
         temp.next = null
+        //Faz com que o ponteiro PREV do item que será excluido aponte par NULL.
         temp.prev = null
 
+        //Faz com que o item anterior retire seu ponteiro next que antes estava apontado para o item que será excluido e 
+        //aponte para o item AFTER que é o item  que vem depois do item que será excluido.
         before.next = after
+
+        //Faz com que o próximo item retire seu ponteiro prev que antes estava apontado para o item que será excluido e 
+        //aponte para o item BEFORE que é o item  que vem antes do item que será excluido.
         after.prev = before
 
         this.length--
