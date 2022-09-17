@@ -63,33 +63,30 @@ class BST {
     }
 
     contains(value){
-        if(this.root === null){
-            return undefined
-        }
+        if(this.root === null) return undefined
 
         let temp = this.root
 
-         while(true){
-            if(value === temp.value) return temp
-            if(value < temp.value){
-                if(temp.left === null){
-                   
-                    return this
-                }
+         while(temp){
+            if(value < temp.left) {
                 temp = temp.left
-            } else{
-                if(temp.right === null){
-                    temp.right = newNode
-
-                    return this
-                }
-
-                temp = temp.right 
             }
 
-         } 
+            else if(value > temp.right){
+                temp = temp.right
+            } else{
+                return true
+            }
+        } 
+          return false
+    }
 
-        
+    minValueNode(currentNode){
+        while(currentNode.left != null){
+            currentNode = currentNode.left
+        }
+
+        return currentNode
     }
 
 }
