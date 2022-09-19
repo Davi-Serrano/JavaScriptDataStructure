@@ -17,9 +17,9 @@ class BST {
         this.root - null
     }
 
-    //INSERT insereve um novo valor na TREE.
+    //INSERT insere um novo valor na TREE.
     insert(value){
-        const newNode= new Node(value)
+        const newNode = new Node(value)
 
         //Se não existe ROOT o item inserido será o novo ROOT.
         if(!this.root){
@@ -62,26 +62,45 @@ class BST {
          } 
     }
 
+
+    //CONTAINS retorna um valor, que passamos, de dentro da árvore usando o método divide and conquer.
     contains(value){
+        
+        //Se a tree ainda não tiver nenhum item retorne undefined.
         if(this.root === null) return undefined
 
+        //TEMP será a nossa variável que percorrerá a tree até acharmos o valor desejado.
         let temp = this.root
 
+        //Usaremos um loop while e em enquanto temp existir repetiremos o código abaixo. 
          while(temp){
+
+            //Se o valor que procuramos for menor que o próximo item a esquerda então ele deverá continuar indo pra esquerda,
+            //Se for maior deverá ir para direita
+            //lembrando que uma das caracteristica da Binary Search Tree é armezar o valor menor do item a esquerda e o maior a direita. 
+            //Após isso o a variável temp será o novo o próximo valor definido ou TEMP.left ou TEMP.rigth e assim o loop se repetirá com TEMP tendo um novo valor
+
+            //Se o valor for menor vai pra esquerda e TEMP assumirá o valor do próximo item a esquerda.
             if(value < temp.left) {
                 temp = temp.left
             }
 
+            //Se o valor for maior vai pra direita e TEMP assumirá o valor do próximo item a esquerda.
             else if(value > temp.right){
                 temp = temp.right
             } else{
                 return true
             }
+
+            //Caso TEMP.left ou TEMP.rigth seja igual a null o temp não existira.
         } 
           return false
     }
 
+    //minValueNode vai retorna o valor mais a esquerda a partir de um NODE.
     minValueNode(currentNode){
+
+        //Enquanto existir um item a esquerda o currentNODE será igual ao item da esquerda .
         while(currentNode.left != null){
             currentNode = currentNode.left
         }
