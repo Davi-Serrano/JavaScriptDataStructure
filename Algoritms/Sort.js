@@ -28,27 +28,37 @@ function bubbleSort(array){
     return array
 }
 
-//
+//No SELECTION SORT nós percorreremos o array até acharmos o menor valor, após acharmos o menor valor ele será colocado em na primeira posição do array
+//e isso se repetirá so que dessa vez não percorreremos o primeiro item ja que ele sabemos que ele está na posição correta, após isso repetiremos o mesmo processo
+//sem fazer a iteração no item anterior que ja foi posicionado no lugar certo.
 function selectionSort(array){
+    
+    //variável MIN guardará o menor valor do array.
     let min
+    
+    //Nesse primeiro loop iteraremos por todo o array até chegar na última posição
     for(let i = 0; i < array.length - 1; i++){
         min = i
        
+        //Esse loop percorrerá o array e achará o menor valor contido nele, após isso atribuirá a min o menor valor.
         for(let j = i + 1; j < array.length; j++){
             if( array[j] <  array[min]){
                 min = j
             }
         }
-
+        
+        //Somente mudará a posição do array se o index atual for diferente do i, pois se não colocaremos o mesmo item no mesmo lugar.
         if(i !== min){
 
-            let temp = array[j]
-           
+            //valor que será substituido.
+            let temp = array[i]
+    
+            //coloca o menor valor na sua posição correta.
             array[i] = array[min]
-           
+
+            //coloca o item que estva na posição do novo MIN na posição aonde o novo MIN estava.
             array[min] = temp
         }
-
     }
     return array
 }
