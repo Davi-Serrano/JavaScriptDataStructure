@@ -1,9 +1,16 @@
+//Graphs é quando fazemos conexões entre os itens e para armazenarmos sua localização
+//Um exeplo de uso de Graphs são seus amigos na redes socias aonde o amigo do seu amigo poderá ser recomendado para vc seguir pois ele terá uma conexão com vc através 
+//de seu amigo, então vc tem uma conexão com seu amigo e ele tem uma com você, o amigo de se amigo não tem nenhuma conexão direta com vc mas tem com seu amigo. 
+
 class Graphs{
+    //Representaremos o local de armazenamento de graphs através do adjacentList.
     constructor(){
         this.adjacentList = []
     }
 
+    //Crirá o item a ser conectado no Graph.
     addVertex(vertex){
+        //Somente criará se o item ainda não existir .
         if(!this.adjacentList[vertex]){
             this.adjacentList[vertex] = []
             return true
