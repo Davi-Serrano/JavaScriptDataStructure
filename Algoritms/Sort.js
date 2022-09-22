@@ -63,18 +63,21 @@ function selectionSort(array){
     return array
 }
 
-
+//NO INSERTION SORT ele ira comparar sempre numero que vem uma posição depois e se for menor mudará de posição.
+//A variavel TEMP representará o atual valor que está em comparação com o array[j] o item anterior.
 function insertionnSort(array){
-    
     let temp 
-
+    
+    //O primerio loop irá  percorrer todo o array com array[i] sendo representando como o valor TEMP o valor atual.
     for(let i = 1; array.length; i++){
-
-        for(var j = i -1; array[j] > temp && j - 1; j--){
+        temp = array[i]
+        
+     //Nesse segundo loop array[j] representa o valor anterior e sempre estará em uma posição antrior que o array[i] a não ser se array[i] esteja na primeira posição   
+        for(var j = i -1; array[j] > temp && j > -1; j--){
+            //troca a posição pois do anteior pelo atual pois é menor
             array[j + 1]  = array[i]
-            
         }
-
+        //troca a posição do atual pelo anteior pois é menor
         array[j+1] = temp
     }
 
