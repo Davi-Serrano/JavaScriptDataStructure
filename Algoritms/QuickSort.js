@@ -4,7 +4,7 @@
 
 //Esse algoritimo é divido em três funções:
 
-//Swap - Essa função mudará a posição do primeiro item com o segundo. se quisermos que o maior número fique a direita colocaremos como o no lugar de secondIndex,
+//Swap - Essa função mudará a posição do primeiro item com o segundo. se quisermos que o maior número fique a direita colocaremos no lugar de secondIndex e
 // nosso primerio indice do array como firtsIndex
 //Caso queiramos que o item fique á esquerda passamos ele como o firtsIndex e o primerio item do array como secondIndex
 //O primerio parâmetro sempre será o array que desejamos usar o quickSort
@@ -39,8 +39,10 @@ function pivot( array, pivotIndex=0, endIndex=array.length-1){
     return swapIndex
 }
 
+//Finalmente a função QuickSort ordenará os itens do array tanto o da esquerda quando o da direita.
 function quickSort(array, left=0, rigth=array.length-1){
 
+    //Se for menor que o left e rigth
     if(left < rigth){
         let pivotIndex = pivot(array, left, rigth)
         quickSort(array, left, pivotIndex-1)
