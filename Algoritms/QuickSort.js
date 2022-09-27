@@ -42,10 +42,13 @@ function pivot( array, pivotIndex=0, endIndex=array.length-1){
 //Finalmente a função QuickSort ordenará os itens do array tanto o da esquerda quando o da direita.
 function quickSort(array, left=0, rigth=array.length-1){
 
-    //Se for menor que o left e rigth
+    //Só executará a função se o  array n estiver vazio 
     if(left < rigth){
+        //Chama a função pivot que coloca os itens menores esquerda do antigo primeiro indice do array .
         let pivotIndex = pivot(array, left, rigth)
+        //Ordena os itens à esquerda
         quickSort(array, left, pivotIndex-1)
+        //Ordena os itens à direita
         quickSort(array, pivotIndex+1, rigth)
     }
 
