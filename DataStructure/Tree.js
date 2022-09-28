@@ -108,4 +108,86 @@ class BST {
         return currentNode
     }
 
+    //ALGORITIMOS
+
+    //BINARY FIRST SEARCH
+    //BFS irá retornar um arrray com os itens na mesma ordem que a árvore
+    BFS() {
+        //CURRENT-NODE representará o item que está sendo colocado dentro do array 
+        let currentNode = this.root
+        //O array RESULTS será o nosso resultado final
+        let results = []
+        //E QUEUE aonde colocaremos os itens que estão irão para o nosso array RESULTS
+        let queue = []
+        //Coloca o item atual que está sendo iterado 
+        queue.push(currentNode)
+
+        //Enquanto existir itens no QUEUE ou seja enquanto houver itens para ser colocados no array RESULTS 
+        while(queue.length) {
+         
+            //Repassa o valor do CURRENT-NODE como sendo o próximo item da fila e já o retira da fila.
+           currentNode = queue.shift()
+           //Adiciona esse item no Array RESULTS
+           results.push(currentNode.value)
+
+           //Se existir algum item conectado ao item que está sendo iterado atualmente, tanto à direita quanto à esquerda, 
+           //colocaremos na fila  até todos os itens estiverem dentro do array RESULTS da mesma forma que a árvore estava sendo formada.
+           if(currentNode.left) {
+            queue.push(currentNode.left)
+            }
+           if(currentNode.right) {
+            queue.push(currentNode.right)
+            }
+        }
+        //Retorna o Array na mesma ordem que a árvore
+        return results
+    }
+
+
+    //DFS-POST ORDER colocará os itens no array começando pelo root mas sempre colocando o item mais a esquerda primerio
+    DFSPreOrder() {
+        ///O array RESULTS será o nosso resultado final
+        let results = []
+
+        //TRAVERSE será uma função recursiva que irá retonar sempre o item mais a esquer enquanto ele existir caso não exista
+        //ele passará para o item da direita até e se esse item tiver algo retornará, e assim sucessivamente
+        function traverse(currentNode) {
+           //Colocamos o resultado mais à esquerda no RESULTS 
+            results.push(currentNode.value)
+            //Se possuir algum item na esquerda ele chamará essa mesma função mas passando o item como parâmetro
+            if(currentNode.left) traverse(currentNode.left)
+            
+            //Depois de verifcar se existe alçgum item na esquerda ele verificará se na direita tambem possui se possuir fara a mesma 
+            //coisa que acima, chamará essa função mas agora passando o item da direita
+            if(currentNode.right) traverse(currentNode.right)
+        }
+        traverse(this.root)
+        return results
+    }
+
+    //DFS-POST ORDER fará a mesma coisa que o método acima so que root será o último item do array ao invés de ser o primeiro
+    DFSPostOrder() {
+        let results = []
+        function traverse(currentNode){
+            if(currentNode.left) traverse(currentNode.left)
+            if(currentNode.right) traverse(currentNode.right)
+            //Somente essa linha irá mudar
+            results.push(currentNode.value)
+        }
+        traverse(this.root)
+        return results
+    }
+
+    //DFS-IN ORDER fará a mesma coisa que o método acima so que root estará na metade do array.
+    DFSInOrder() {
+        let results = []
+        function traverse(currentNode){
+            if(currentNode.left) traverse(currentNode.left)
+            //Somente essa linha irá mudar
+            results.push(currentNode.value)
+            if(currentNode.right) traverse(currentNode.right)
+        }
+        traverse(this.root)
+        return results
+    }
 }
